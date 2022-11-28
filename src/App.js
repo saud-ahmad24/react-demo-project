@@ -1,5 +1,10 @@
 import './App.css';
-// import About from './components/About';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import About from './components/About';
 import NavBar from './components/Navbar';
 import TextForm from './components/TextForm';
 import React,{useState} from 'react'
@@ -26,17 +31,28 @@ function App() {
       setMode('dark')
       document.body.style.backgroundColor='#080620';
       showAlert("Dark mode is enabled","success")
+      setInterval(() => {
+        document.title="Hi"
+      }, 2000);
+      setInterval(() => {
+        document.title="Hello"
+      }, 1500);
     }
   }
   return (
     <>
-    <NavBar  title="TextUtils" mode={mode} toggleMode={toggleMode}/>
-    <Alert alert={alert}/>
-    <div className="container" >
-    <TextForm heading="TextUtils"  mode={mode}/>
-    {/* <About/> */}
-
-    </div>
+    <Router>
+      <NavBar title="TextUtils" mode={mode} toggleMode={toggleMode} />
+      <Alert alert={alert} />
+      <div className="container">
+      <Routes>
+           <Route exact path="/" element={<TextForm/>} showAlert={showAlert} heading="sdfdfzd" toggleMode={toggleMode}/>
+        </Routes>
+        <Routes>
+           <Route exact path="/about" element={<About/>} />
+        </Routes>
+      </div>
+    </Router>
     </>
   );
 }
